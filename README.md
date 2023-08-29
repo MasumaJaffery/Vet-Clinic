@@ -99,6 +99,7 @@ Example commands:
 
 - [ ] **[Add Queries]**
 - [ ] **[Update Queries]**
+- [ ] **[Selection Queries]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
