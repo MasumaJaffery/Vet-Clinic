@@ -4,9 +4,9 @@ CREATE DATABASE VetClinic;
 -- Create Table;
 CREATE TABLE animals (
     name varchar(100),
-    id integer,
+    id integer  NOT NULL PRIMARY KEY,
     date_of_birth date,
     escape_attempts integer,
-    neutered: boolean,
+    neutered boolean,
     weight_kg decimal
 );
