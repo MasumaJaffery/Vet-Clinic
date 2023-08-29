@@ -11,3 +11,11 @@ SELECT * FROM animals WHERE neutered = true AND escape_attempts >= 3;
 --4. List the date of birth of all animals named either "Agumon" or "Pikachu".
 -- IN OPERATOR allows you to match specify list of values and returns any pf true.
 SELECT * FROM animals WHERE name IN ('Agumon','Pikachu');
+--5. List name and escape attempts of animals that weigh more than 10.5kg.
+SELECT * FROM animals WHERE weight_kg >= 10.5;
+--6. Find all animals that are neutered.
+SELECT * FROM animals WHERE neutered = true;
+--7. Find all animals not named Gabumon.
+SELECT * FROM animals WHERE name != 'Gabumon';
+--8. Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg).ADD
+SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
