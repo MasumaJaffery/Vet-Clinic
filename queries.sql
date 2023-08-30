@@ -19,3 +19,22 @@ SELECT * FROM animals WHERE neutered = true;
 SELECT * FROM animals WHERE name != 'Gabumon';
 --8. Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg).ADD
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
+--Transcations via Commit and Rollback;
+--Before rollback we used commit command that saves all commands operations that runs before rollback,
+--once rollback commited all previous operations like update,insert,delete reverts.
+--Rollback not works on commands that done before Commit.
+--Commit and Rollback only works for Insert,Update,Delete.
+--Transcation 1.
+BEGIN;
+-- update the animals table by setting the species column to unspecified.
+UPDATE animals SET species = 'unspecified';
+-- check the update done!
+SELECT * FROM animals;
+--Then roll back the change and verify that the species columns went back to the state before the transaction.
+ROLLBACK;
+--Transcation 2.
+BEGIN;
+--Update the animals table by setting the species column to digimon for all animals that have a name ending in mon.
+UPDATE animals set species = 'digimon' WHERE name LIKE '%mon';
+--Update the animals table by setting the species column to pokemon for all animals that don't have species already set.
+UPDATE animals set species = 'pokemon' WHERE species IS NULL;
