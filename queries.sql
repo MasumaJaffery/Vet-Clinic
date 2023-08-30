@@ -77,6 +77,7 @@ SELECT COUNT(*) AS NotEscape From animals WHERE escape_attempts = 0;
 SELECT AVG(weight_kg) FROM animals;
 
 --Who escapes the most, neutered or not neutered animals?
+-- GROUP BY Clause is used to analyze two columns from table animals.
 
 SELECT neutered AS neutered_animals, MAX(escape_attempts) AS animals_escape_the_most FROM animals GROUP BY neutered;
 
