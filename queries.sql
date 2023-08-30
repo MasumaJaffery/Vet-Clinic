@@ -38,3 +38,55 @@ BEGIN;
 UPDATE animals set species = 'digimon' WHERE name LIKE '%mon';
 --Update the animals table by setting the species column to pokemon for all animals that don't have species already set.
 UPDATE animals set species = 'pokemon' WHERE species IS NULL;
+--Verify Changes were Made;
+SELECT * FROM animals;
+--Commit the transaction.
+COMMIT;
+--Transcation 3.
+--Delete all records in the animals table;
+DELETE From animals;
+--rollback verify if all records in the animals table still exists. 
+ROLLBACK;
+--Transcation 4.
+BEGIN;
+--Delete all animals born after Jan 1st, 2022.
+DELETE FROM animals WHERE date_of_birth > '2022-1-1';
+-- Savepoints are used to set points within a transaction to which you can later roll back if needed.
+SAVEPOINT delete_savepoint
+--Update all animals' weight to be their weight multiplied by -1.
+
+UPDATE animals SET weight_kg = weight_kg * -1;
+--Rollback to the savepoint
+ROLLBACK TO SAVEPOINT delete_savepoint;
+--Update all animals' weights that are negative to be their weight multiplied by -1.
+-- We used 0 because > than zero negative values starts;
+UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
+--Commit transaction
+COMMIT
+-- Queries;
+-- How many animals are there?
+
+SELECT COUNT(*) AS Total From animals;
+
+--How many animals have never tried to escape
+
+SELECT COUNT(*) AS NotEscape From animals WHERE escape_attempts = 0;
+
+--What is the average weight of animals?
+
+SELECT AVG(weight_kg) FROM animals;
+
+--Who escapes the most, neutered or not neutered animals?
+
+SELECT neutered AS neutered_animals, MAX(escape_attempts) AS animals_escape_the_most FROM animals GROUP BY neutered;
+
+
+--What is the minimum and maximum weight of each type of animal?
+
+SELECT MIN(weight_kg) as MinWeight from animals;
+SELECT MAX(weight_kg) as MaxWeight from animals;
+
+--What is the average number of escape attempts per animal type of those born between 1990 and 2000?
+SELECT AVG(escape_attempts) AS avg_escape
+FROM animals
+WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31';
