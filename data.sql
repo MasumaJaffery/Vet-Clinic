@@ -33,3 +33,24 @@ VALUES ('Blossom', 10,'1998-10-13',3,true,17.0);
 -- Animal:Ditto
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
 VALUES ('Ditto', 11,'2022-5-14',4,true,22.0);
+
+--Inseration of Data in Ownwers Table
+--Owner: Sam Smith
+INSERT INTO owners (full_name, age)
+VALUES ('Sam Smith',34);
+--Owner: Jennifer Orwell 
+INSERT INTO owners (full_name, age)
+VALUES ('Jennifer Orwell',19);
+--Owner: Bob
+INSERT INTO owners (full_name, age)
+VALUES ('Bob',45);
+--Owner: Melody Pond
+INSERT INTO owners (full_name, age)
+VALUES ('Melody Pond',77);
+--Owner: Dean Winchester 
+INSERT INTO owners (full_name, age)
+VALUES ('Dean Winchester',14);
+--Owner: Jodie Whittaker
+INSERT INTO owners (full_name, age)
+VALUES ('Jodie Whittaker',38);
+
