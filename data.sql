@@ -17,7 +17,7 @@ INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_
 VALUES ('Charmander', 5,'2020-2-8',0,false,-11.0);
 -- Animal:Plantmon
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
-VALUES ('Plantmon', 6,'2021-11-15',2,true,-5.7);
+VALUES ('Platmon', 6,'2021-11-15',2,true,-5.7);
 -- Animal:Squirtle
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
 VALUES ('Squirtle', 7,'1993-4-2',3,false,-12.13);
@@ -84,12 +84,12 @@ UPDATE animals SET owner_id = 2 WHERE name = 'Gabumon' OR name = 'Pikachu';
 
 --Bob owns Devimon and Plantmon
 
-UPDATE animals SET owner_id = 2 WHERE name = 'Devimon' OR name = 'Platmon';
+UPDATE animals SET owner_id = 3 WHERE name = 'Devimon' OR name = 'Platmon';
 
 --Melody Pond owns Charmander, Squirtle, and Blossom.
-UPDATE animals SET owner_id = 2 WHERE name = 'Charmander' OR name = 'Squirtle' OR name = 'Blossom';
+UPDATE animals SET owner_id = 4 WHERE name = 'Charmander' OR name = 'Squirtle' OR name = 'Blossom';
 
 --Dean Winchester owns Angemon and Boarmon.
-UPDATE animals SET owner_id = 2 WHERE name = 'Angemon' OR name = 'Boarmon';
+UPDATE animals SET owner_id = 5 WHERE name = 'Angemon' OR name = 'Boarmon';
 
 
