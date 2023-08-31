@@ -14,16 +14,16 @@ INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_
 VALUES ('Devimon', 4,'2017-5-12',5,true,11.0);
 -- Animal:Charmander
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
-VALUES ('Charmander', 5,'2020-2-8',0,false,11.0);
+VALUES ('Charmander', 5,'2020-2-8',0,false,-11.0);
 -- Animal:Plantmon
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
-VALUES ('Plantmon', 6,'2021-11-15',2,true,5.7);
+VALUES ('Plantmon', 6,'2021-11-15',2,true,-5.7);
 -- Animal:Squirtle
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
-VALUES ('Squirtle', 7,'1993-4-2',3,false,12.13);
+VALUES ('Squirtle', 7,'1993-4-2',3,false,-12.13);
 -- Animal:Angemon
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
-VALUES ('Angemon', 8,'2005-6-12',1,true,45.0);
+VALUES ('Angemon', 8,'2005-6-12',1,true,-45.0);
 -- Animal:Boarmon
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
 VALUES ('Boarmon', 9,'2005-6-7',7,true,20.4);
