@@ -53,3 +53,11 @@ ALTER TABLE animals
 ADD CONSTRAINT owner_species
 FOREIGN KEY (owner_id) REFERENCES owners(id);
 
+
+--CREATE Table vets
+CREATE TABLE vets (
+id serial PRIMARY KEY,
+name TEXT,
+age integer,
+date_of_graduation date
+);
