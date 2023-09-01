@@ -41,7 +41,6 @@ ADD column species_id INTEGER;
 ALTER table animals
 ADD column owner_id INTEGER;
 
-
 --Add CONSTRAINT as FOREIGN KEY on species_id and owner_id;
 -- (species_id) is they column in animals table.
 -- species(id) shows table species had column id.
