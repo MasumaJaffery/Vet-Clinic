@@ -17,7 +17,7 @@ INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_
 VALUES ('Charmander', 5,'2020-2-8',0,false,-11.0);
 -- Animal:Plantmon
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
-VALUES ('Plantmon', 6,'2021-11-15',2,true,-5.7);
+VALUES ('Platmon', 6,'2021-11-15',2,true,-5.7);
 -- Animal:Squirtle
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
 VALUES ('Squirtle', 7,'1993-4-2',3,false,-12.13);
@@ -33,3 +33,63 @@ VALUES ('Blossom', 10,'1998-10-13',3,true,17.0);
 -- Animal:Ditto
 INSERT INTO animals (name, id, date_of_birth, escape_attempts, neutered, weight_kg)
 VALUES ('Ditto', 11,'2022-5-14',4,true,22.0);
+
+--Inseration of Data in Ownwers Table
+--Owner: Sam Smith
+INSERT INTO owners (full_name, age)
+VALUES ('Sam Smith',34);
+--Owner: Jennifer Orwell 
+INSERT INTO owners (full_name, age)
+VALUES ('Jennifer Orwell',19);
+--Owner: Bob
+INSERT INTO owners (full_name, age)
+VALUES ('Bob',45);
+--Owner: Melody Pond
+INSERT INTO owners (full_name, age)
+VALUES ('Melody Pond',77);
+--Owner: Dean Winchester 
+INSERT INTO owners (full_name, age)
+VALUES ('Dean Winchester',14);
+--Owner: Jodie Whittaker
+INSERT INTO owners (full_name, age)
+VALUES ('Jodie Whittaker',38);
+
+--Insersation in Spieces Table;
+--spiece: Pokemon
+INSERT INTO species (name)
+VALUES ('Pokemon');
+--spiece: Digimon
+INSERT INTO species (name)
+VALUES ('Digimon');
+
+--Modify your inserted animals so it includes the species_id value;
+--If the name ends in "mon" it will be Digimon
+
+UPDATE animals SET species_id = 2 
+WHERE name LIKE '%mon';
+
+--All other animals are Pokemon
+
+UPDATE animals SET species_id = 1 
+WHERE name NOT LIKE '%mon';
+
+--Modify your inserted animals to include owner information (owner_id)
+--Sam Smith owns Agumon;
+
+UPDATE animals SET owner_id = 1 WHERE name = 'Agumon';
+
+--Jennifer Orwell owns Gabumon and Pikachu.
+
+UPDATE animals SET owner_id = 2 WHERE name = 'Gabumon' OR name = 'Pikachu';
+
+--Bob owns Devimon and Plantmon
+
+UPDATE animals SET owner_id = 3 WHERE name = 'Devimon' OR name = 'Platmon';
+
+--Melody Pond owns Charmander, Squirtle, and Blossom.
+UPDATE animals SET owner_id = 4 WHERE name = 'Charmander' OR name = 'Squirtle' OR name = 'Blossom';
+
+--Dean Winchester owns Angemon and Boarmon.
+UPDATE animals SET owner_id = 5 WHERE name = 'Angemon' OR name = 'Boarmon';
+
+
