@@ -124,6 +124,8 @@ INSERT INTO specialization (species_id, vets_id)
 VALUES (2,4);
 
 --Inserstion in visit table;
+-- animals_id is from animals Table.
+-- vets_id is from vets Table.
 
 --Agumon visited William Tatcher on May 24th, 2020.
 INSERT INTO visit(vets_id,animals_id,date_of_visit)
