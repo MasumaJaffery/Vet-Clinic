@@ -61,3 +61,12 @@ name TEXT,
 age integer,
 date_of_graduation date
 );
+
+-- Create table Specialiazation
+CREATE TABLE Specialization (
+    specialize_id SERIAL PRIMARY KEY,
+    species_id INTEGER,
+    vets_id INTEGER,
+    FOREIGN KEY(species_id) REFERENCES species(id),
+    FOREIGN KEY(vets_id) REFERENCES vets(id)
+);

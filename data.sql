@@ -93,3 +93,17 @@ UPDATE animals SET owner_id = 4 WHERE name = 'Charmander' OR name = 'Squirtle' O
 UPDATE animals SET owner_id = 5 WHERE name = 'Angemon' OR name = 'Boarmon';
 
 
+-- Insersation in Vets Table;
+Insert the following data for vets:
+--Vet William Tatcher
+INSERT INTO vets (name,age,date_of_graduation)
+VALUES ('William Tatcher',45,'2000-4-23');
+--Vet Maisy Smith
+INSERT INTO vets (name,age,date_of_graduation)
+VALUES ('Maisy Smith',26,'2019-1-17');
+--Vet Stephanie Mendez
+INSERT INTO vets (name,age,date_of_graduation)
+VALUES ('Stephanie Mendez',64,'1981-5-4');
+--Vet Jack Harkness
+INSERT INTO vets (name,age,date_of_graduation)
+VALUES ('Jack Harkness',38,'2008-6-8');
