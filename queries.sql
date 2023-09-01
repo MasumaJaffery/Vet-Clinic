@@ -91,3 +91,54 @@ SELECT MAX(weight_kg) as MaxWeight from animals;
 SELECT AVG(escape_attempts) AS avg_escape
 FROM animals
 WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31';
+
+--What animals belong to Melody Pond?
+--owners.full_name => owners is tablename and used as alias that means refer to something.
+--INNER JOIN => INNER JOIN only includes the rows of selected columns that satisfy the condition.
+
+SELECT owners.full_name AS ownername, animals.name AS animalname
+FROM owners
+INNER JOIN animals ON owners.id = animals.owner_id
+WHERE owners.full_name = 'Melody Pond';
+
+--List of all animals that are pokemon (their type is Pokemon).
+
+SELECT animals.name AS pokemons
+    FROM animals
+    INNER JOIN species ON species_id = species.id
+    WHERE species.name = 'Pokemon';
+
+--List all owners and their animals, remember to include those that don't own any animal.
+--STRING_AGG => SQL aggregate function that is used to concatenate values from multiple rows into a single string, separated by a COMMA.
+--LEFT JOIN =>  Retrieve all the records from the left table and matching records from the right table. If there's no match in the right table, the result will still include the records from the left table, with null values in the columns from the right table.
+SELECT full_name AS owner, 
+    STRING_AGG(animals.name, ', ') AS pokemons
+    FROM owners
+    LEFT JOIN animals ON owners.id = owner_id
+    GROUP BY owners.full_name;
+-- List all Digimon owned by Jennifer Orwell.
+SELECT 
+    owners.full_name AS owner,
+    animals.name AS digimons
+    FROM owners
+    JOIN animals ON owners.id = owner_id
+    JOIN species ON species.id = species_id
+    WHERE owners.full_name = 'Jennifer Orwell'
+    AND species.name = 'Digimon';
+
+-- List all animals owned by Dean Winchester that haven't tried to escape.
+SELECT 
+    animals.name AS Mr_Winchester_pets,
+    animals.escape_attempts
+    FROM animals
+    JOIN owners ON owner_id = owners.id
+    WHERE owners.full_name = 'Dean Winchester'
+    AND animals.escape_attempts = 0;
+
+-- Who owns the most animals?
+SELECT 
+    owners.full_name AS owners,
+    COUNT(animals.owner_id) AS pets_amount
+    FROM owners
+    LEFT JOIN animals ON owners.id = owner_id
+    GROUP BY owners;
