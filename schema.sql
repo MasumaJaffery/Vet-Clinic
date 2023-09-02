@@ -4,14 +4,14 @@ CREATE DATABASE VetClinic;
 -- Create Table;
 CREATE TABLE animals (
     name varchar(100),
-    id integer  NOT NULL PRIMARY KEY,
+    id SERIAL  NOT NULL PRIMARY KEY,
     date_of_birth date,
     escape_attempts integer,
     neutered boolean,
     weight_kg decimal
 );
 
-ALTER TABLE animals ADD species STRING;
+ALTER TABLE animals ADD species text;
 
 --Create Table owners
 
@@ -53,3 +53,30 @@ ALTER TABLE animals
 ADD CONSTRAINT owner_species
 FOREIGN KEY (owner_id) REFERENCES owners(id);
 
+
+--CREATE Table vets
+CREATE TABLE vets (
+id serial PRIMARY KEY,
+name TEXT,
+age integer,
+date_of_graduation date
+);
+
+-- Create table Specialiazation
+CREATE TABLE Specialization (
+    specialize_id SERIAL PRIMARY KEY,
+    species_id INTEGER,
+    vets_id INTEGER,
+    FOREIGN KEY(species_id) REFERENCES species(id),
+    FOREIGN KEY(vets_id) REFERENCES vets(id)
+);
+
+-- Create Table visit
+CREATE TABLE visit(
+    visit_id SERIAL PRIMARY KEY,
+    vets_id INT,
+    animals_id INT,
+    date_of_visit DATE NOT NULL,
+    FOREIGN KEY(vets_id) REFERENCES vets(id),
+    FOREIGN KEY(animals_id) REFERENCES animals(id)
+);
