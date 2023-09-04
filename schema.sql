@@ -1,82 +1,47 @@
-/* Database schema to keep the structure of entire database. */
--- Create Database;
-CREATE DATABASE VetClinic;
--- Create Table;
-CREATE TABLE animals (
-    name varchar(100),
-    id SERIAL  NOT NULL PRIMARY KEY,
-    date_of_birth date,
-    escape_attempts integer,
-    neutered boolean,
-    weight_kg decimal
+CREATE TABLE owners(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  full_name VARCHAR(20),
+  age INT,
+  PRIMARY KEY(id)
 );
 
-ALTER TABLE animals ADD species text;
-
---Create Table owners
-
-CREATE TABLE owners (
-    id serial PRIMARY KEY,
-    full_name TEXT,
-    age integer
-)
-
---Create Table species
-
-CREATE TABLE species (
-    id serial PRIMARY KEY,
-    name TEXT
-)
-
---Remove Spieces Column from animals table
-
-ALTER table animals
-DROP column species;
-
--- Add species_id AND owner_id as Columns in table animals;
-
-ALTER table animals
-ADD column species_id INTEGER;
-
-ALTER table animals
-ADD column owner_id INTEGER;
-
---Add CONSTRAINT as FOREIGN KEY on species_id and owner_id;
--- (species_id) is they column in animals table.
--- species(id) shows table species had column id.
-
-ALTER table animals
-Add CONSTRAINT fk_species
-FOREIGN KEY (species_id) REFERENCES species(id);
-
-ALTER TABLE animals
-ADD CONSTRAINT owner_species
-FOREIGN KEY (owner_id) REFERENCES owners(id);
-
-
---CREATE Table vets
-CREATE TABLE vets (
-id serial PRIMARY KEY,
-name TEXT,
-age integer,
-date_of_graduation date
+CREATE TABLE species(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(20),
+  PRIMARY KEY(id)
 );
 
--- Create table Specialiazation
-CREATE TABLE Specialization (
-    specialize_id SERIAL PRIMARY KEY,
-    species_id INTEGER,
-    vets_id INTEGER,
-    FOREIGN KEY(species_id) REFERENCES species(id),
-    FOREIGN KEY(vets_id) REFERENCES vets(id)
+CREATE TABLE animals(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(20),
+  date_of_birth DATE,
+  escape_attempts INT,
+  neutered BOOLEAN,
+  weight_kg DECIMAL,
+  species_id INT REFERENCES species(id),
+  owner_id INT REFERENCES owners(id),
+  PRIMARY KEY(id)
 );
 
--- Create Table visit
-CREATE TABLE visit(
-    visit_id SERIAL PRIMARY KEY,
-    vets_id INT,
-    animals_id INT,
-    date_of_visit DATE NOT NULL,
-    FOREIGN KEY(vets_id) REFERENCES vets(id),
-    FOREIGN KEY(animals_id) REFERENCES animals(id)
+CREATE TABLE vets(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(20),
+  age INT,
+  date_of_graduation DATE,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE specializations(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  species_id INT REFERENCES species(id),
+  vet_id INT REFERENCES vets(id),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE visits(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  animal_id INT REFERENCES animals(id),
+  vet_id INT REFERENCES vets(id),
+  date_of_visit DATE,
+  PRIMARY KEY(id)
 );
