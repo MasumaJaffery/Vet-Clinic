@@ -1,52 +1,56 @@
--- Define tables for each entity
+CREATE DATABASE vetClinic;
 
-CREATE TABLE Patients (
-    patient_id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    dob DATE,
-    address VARCHAR(255),
-    phone_number VARCHAR(15)
+CREATE TABLE owners(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  full_name VARCHAR(20),
+  age INT,
+  PRIMARY KEY(id)
 );
 
-CREATE TABLE Doctors (
-    doctor_id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    specialty VARCHAR(100)
+CREATE TABLE species(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(20),
+  PRIMARY KEY(id)
 );
 
-CREATE TABLE Appointments (
-    appointment_id INT PRIMARY KEY AUTO_INCREMENT,
-    patient_id INT,
-    doctor_id INT,
-    appointment_date DATE,
-    notes TEXT,
-    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
-    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+CREATE TABLE animals(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(20),
+  date_of_birth DATE,
+  escape_attempts INT,
+  neutered BOOLEAN,
+  weight_kg DECIMAL,
+  species_id INT REFERENCES species(id),
+  owner_id INT REFERENCES owners(id),
+  PRIMARY KEY(id)
 );
 
-CREATE TABLE Medications (
-    medication_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100),
-    description TEXT
+CREATE TABLE vets(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(20),
+  age INT,
+  date_of_graduation DATE,
+  PRIMARY KEY(id)
 );
 
--- Assuming a many-to-many relationship between Patients and Medications
-
-CREATE TABLE Patient_Medications (
-    patient_id INT,
-    medication_id INT,
-    start_date DATE,
-    end_date DATE,
-    PRIMARY KEY (patient_id, medication_id),
-    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
-    FOREIGN KEY (medication_id) REFERENCES Medications(medication_id)
+CREATE TABLE specializations(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  species_id INT REFERENCES species(id),
+  vet_id INT REFERENCES vets(id),
+  PRIMARY KEY(id)
 );
 
--- Add indexes on foreign key columns
+CREATE TABLE visits(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  animal_id INT REFERENCES animals(id),
+  vet_id INT REFERENCES vets(id),
+  date_of_visit DATE,
+  PRIMARY KEY(id)
+);
 
-CREATE INDEX idx_patient_id ON Appointments(patient_id);
-CREATE INDEX idx_doctor_id ON Appointments(doctor_id);
-CREATE INDEX idx_patient_medication ON Patient_Medications(patient_id, medication_id);
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
 
+CREATE INDEX idx_animal_id ON visits(animal_id);
+CREATE INDEX idx_vet_id ON visits(vet_id);
+CREATE INDEX idx_email ON owners(email);
+CLUSTER visits USING idx_animal_id;
