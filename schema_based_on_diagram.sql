@@ -1,56 +1,53 @@
-CREATE DATABASE vetClinic;
-
-CREATE TABLE owners(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  full_name VARCHAR(20),
-  age INT,
-  PRIMARY KEY(id)
+CREATE TABLE patients (
+  id            SERIAL PRIMARY KEY,
+  name          VARCHAR(255),
+  date_of_birth DATE
 );
 
-CREATE TABLE species(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(20),
-  PRIMARY KEY(id)
+CREATE TABLE medical_histories (
+  id         SERIAL PRIMARY KEY,
+  admited_at TIMESTAMP,
+  patient_id INTEGER UNIQUE REFERENCES patients(id),
+  email      VARCHAR(120)
 );
 
-CREATE TABLE animals(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(20),
-  date_of_birth DATE,
-  escape_attempts INT,
-  neutered BOOLEAN,
-  weight_kg DECIMAL,
-  species_id INT REFERENCES species(id),
-  owner_id INT REFERENCES owners(id),
-  PRIMARY KEY(id)
+CREATE TABLE treatments (
+  id   SERIAL PRIMARY KEY,
+  type VARCHAR(100),
+  name VARCHAR(255)
 );
 
-CREATE TABLE vets(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  name VARCHAR(20),
-  age INT,
-  date_of_graduation DATE,
-  PRIMARY KEY(id)
+CREATE TABLE medical_history_treatments (
+  medical_history_id INTEGER REFERENCES medical_histories(id),
+  treatment_id       INTEGER REFERENCES treatments(id),
+  PRIMARY KEY (medical_history_id, treatment_id)
 );
 
-CREATE TABLE specializations(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  species_id INT REFERENCES species(id),
-  vet_id INT REFERENCES vets(id),
-  PRIMARY KEY(id)
+CREATE TABLE invoices (
+  id               SERIAL PRIMARY KEY,
+  total_amount     DECIMAL,
+  generated_at     TIMESTAMP,
+  payed_at         TIMESTAMP,
+  medical_history_id INTEGER UNIQUE REFERENCES medical_histories(id)
 );
 
-CREATE TABLE visits(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  animal_id INT REFERENCES animals(id),
-  vet_id INT REFERENCES vets(id),
-  date_of_visit DATE,
-  PRIMARY KEY(id)
+CREATE TABLE invoice_items (
+  id           SERIAL PRIMARY KEY,
+  unit_price   DECIMAL,
+  quantity     INTEGER,
+  total_price  DECIMAL,
+  invoice_id   INTEGER REFERENCES invoices(id),
+  treatment_id INTEGER REFERENCES treatments(id)
 );
 
-ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+CREATE INDEX idx_medical_histories_patient_id ON medical_histories (patient_id);
 
-CREATE INDEX idx_animal_id ON visits(animal_id);
-CREATE INDEX idx_vet_id ON visits(vet_id);
-CREATE INDEX idx_email ON owners(email);
-CLUSTER visits USING idx_animal_id;
+CREATE INDEX idx_medical_history_treatments_medical_history_id ON medical_history_treatments (medical_history_id);
+
+CREATE INDEX idx_medical_history_treatments_treatment_id ON medical_history_treatments (treatment_id);
+
+CREATE INDEX idx_invoices_medical_history_id ON invoices (medical_history_id);
+
+CREATE INDEX idx_invoice_items_invoice_id ON invoice_items (invoice_id);
+
+CREATE INDEX idx_invoice_items_treatment_id ON invoice_items (treatment_id);
